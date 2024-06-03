@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="register-form">
+        <input type="text" placeholder="Enter your username" id="username">
+        <input type="password" placeholder="Enter your password" id="password">
+        <button type="submit">Register</button>
+    </form>
+
+
+
+    <script>
+        const form  = document.getElementById("register-form")
+        const username  = document.getElementById("username")
+        const password  = document.getElementById("password")
+        form.addEventListener("submit",async (e)=>{
+            e.preventDefault();
+            const response = await fetch("http://localhost:3000/register",{
+                method:'POST',
+                headers:{
+                    'Content-Type':"application/json"
+                },
+                body:JSON.stringify({username:username.value,password:password.value})
+            })
+            const result = await response.json();
+            const {id} = result;
+            window.location.replace(`http://localhost:3000/profile.html?user=${id}`)
+        })
+    </script>
+</body>
+</html>
